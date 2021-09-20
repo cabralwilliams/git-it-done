@@ -5,10 +5,12 @@ var displayRepos = function(repos, searchTerm) {
         return;
     }
     for(var i = 0; i < repos.length; i++) {
-        var nextDiv = document.createElement("div");
-        nextDiv.className = "flex-row justify-space-between list-item align-center";
-        var leftDiv = document.createElement("div");
-        leftDiv.textContent = repos[i].full_name;
+        var nextEl = document.createElement("a");
+        nextEl.className = "flex-row justify-space-between list-item align-center";
+        var repoName = repos[i].owner.login + "/" + repos[i].name;
+        nextEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
+        var leftEl = document.createElement("span");
+        leftEl.textContent = repoName;
         var rightDiv = document.createElement("div");
         rightDiv.classList = "flex-row align-center";
         if(repos[i].open_issues_count > 0) {
@@ -18,8 +20,8 @@ var displayRepos = function(repos, searchTerm) {
           rightDiv.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
         }
         //rightDiv.textContent = repos[i].open_issues_count;
-        nextDiv.append(leftDiv,rightDiv);
-        document.querySelector("#repos-container").appendChild(nextDiv);
+        nextEl.append(leftEl,rightDiv);
+        document.querySelector("#repos-container").appendChild(nextEl);
     }
 };
 
